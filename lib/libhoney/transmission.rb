@@ -40,7 +40,6 @@ module Libhoney
       }
     end
 
-    # TODO:EN: Remove when we are confident that send_batches works
     def send_loop
       # eat events until we run out
       loop {
@@ -67,7 +66,12 @@ module Libhoney
       }
     end
 
-    # TODO:EN: Write tests for this behavior (whoops)
+    # TODO:EAN: Next steps for getting batch sending working:
+    #   - Debug out why using `nil` to signal end of queue is not working (lines 80, 86)
+    #   - Implement send_frequency support (i.e. only send batches when a full
+    #     batch is ready or send_frequency ms has passed since last send)
+    #   - Update tests to exercise batching functionality
+    #   - Remove send_loop method (kept for reference)
     def send_batches
       # eat batches of events until we run out
       loop {
@@ -101,9 +105,6 @@ module Libhoney
           :status_code => resp.status,
           :metadata => batch[0].metadata
         )
-
-        # TODO:EN: just for debugging, delete this :)
-        puts resp.status, batch.size
 
         begin
           @responses.enq(response, !@block_on_responses)
