@@ -70,6 +70,8 @@ module Libhoney
     #   - Debug out why using `nil` to signal end of queue is not working (lines 80, 86)
     #   - Implement send_frequency support (i.e. only send batches when a full
     #     batch is ready or send_frequency ms has passed since last send)
+    #   - Support overriding additional fields at the event level in batch_event
+    #     (sample rate, team, etc.)
     #   - Update tests to exercise batching functionality
     #   - Remove send_loop method (kept for reference)
     def send_batches
